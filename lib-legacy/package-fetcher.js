@@ -80,13 +80,21 @@ class PackageFetcher {
       const noCacheTypesOption = _this2.config.getOption('no-cache-remote-types')      
       const noCacheTypes = typeof noCacheTypesOption == 'string' 
         ? noCacheTypesOption.split(',') : ['git', 'copy'] 
-      const useCache = noCacheTypes.indexOf(ref.remote.type) < 0
+      let useCache = noCacheTypes.indexOf(ref.remote.type) < 0
+      let noCacheForGit = useCache && noCacheTypes.indexOf('git') >= 0
+      
+      if (noCacheForGit) {        
+        let isGitHub = /codeload\.github\.com/i.test(ref.remote.reference)        
+        let isBitBucket = /bitbucket\.org/i.test(ref.remote.reference)
+        useCache = !(isGitHub || isBitBucket)         
+      }
+      
       if (useCache) {
         if (yield _this2.config.isValidModuleDest(dest)) {
           return _this2.fetchCache(dest, fetcher);
         }
       }
-
+      
       // remove as the module may be invalid
       yield (_fs || _load_fs()).unlink(dest);
 
