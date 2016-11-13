@@ -1,9 +1,9 @@
 # Yarn without harm
 
-> :tools: This is tunned version of yarn@16.0.1 that doesn't use cache for 
+> :wrench: This is tunned version of yarn@16.0.1 that doesn't use cache for 
 `git` and `file` dependencies ([because of this](https://github.com/yarnpkg/yarn/issues/1794)).
 
-[This is done by simple change in the code](lib/util/package-fetcher.js#79)
+[This is done by simple change in the code](https://github.com/whitecolor/my-yarn/commit/336ec8b736760a9933d658caf48fb21ae99fc4f9)
 Yarn still will copy fetched package new sources to cache, 
 but will do this on every new install/upgrade.
 
