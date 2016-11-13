@@ -1,3 +1,20 @@
+# Yarn without harm
+
+> :tools: This is tunned version of yarn@16.0.1 that doesn't use cache for 
+`git` and `file` dependencies ([because of this](https://github.com/yarnpkg/yarn/issues/1794)).
+
+[This is done by simple change in the code](lib/util/package-fetcher.js#79)
+Yarn still will copy fetched package new sources to cache, 
+but will do this on every new install/upgrade.
+
+Install instead of standard yarn:
+> npm i github:whitecolor/my-yarn -g
+
+Set remote fetcher types (git, copy, tallbar) not to cache (this is optional):
+> yarn config set "no-cache-remote-types" "copy" // if not set, "git,copy" is used
+
+-----------
+
 <p align="center">
   <a href="https://yarnpkg.com/">
     <img alt="Yarn" src="https://github.com/yarnpkg/assets/blob/master/yarn-kitten-full.png?raw=true" width="546">
