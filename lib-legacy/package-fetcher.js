@@ -79,7 +79,7 @@ class PackageFetcher {
 
       const noCacheTypesOption = _this2.config.getOption('no-cache-remote-types')      
       const noCacheTypes = typeof noCacheTypesOption == 'string' 
-        ? noCacheTypesOption : ['git', 'copy'] 
+        ? noCacheTypesOption.split(',') : ['git', 'copy'] 
       const useCache = noCacheTypes.indexOf(ref.remote.type) < 0
       if (useCache) {
         if (yield _this2.config.isValidModuleDest(dest)) {
